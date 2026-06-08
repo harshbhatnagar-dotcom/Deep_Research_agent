@@ -1,0 +1,7 @@
+openai-agents
+openai
+pydantic
+python-dotenv
+resend
+tavily-python
+ipython
