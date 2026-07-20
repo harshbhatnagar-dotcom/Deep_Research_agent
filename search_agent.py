@@ -33,6 +33,6 @@ search_agent=Agent(
     name="Search Agent",
     instructions=INSTRUCTIONS,
     tools=[websearch],
-    model=llama_scout,
+    model=gpt_oss,
     model_settings=ModelSettings(tool_choice="required")
 )

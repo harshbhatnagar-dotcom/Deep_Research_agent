@@ -8,10 +8,13 @@ load_dotenv(override=True)
 
 
 groq_api_key = os.getenv('GROQ_API_KEY')
+openrouter_api_key= os.getenv("OPENROUTER_API_KEY")
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
+OPEN_ROUTER_URL="https://openrouter.ai/api/v1"
 groq_client = AsyncOpenAI(base_url=GROQ_BASE_URL, api_key=groq_api_key)
-gpt_oss = OpenAIChatCompletionsModel(model="openai/gpt-oss-120b", openai_client=groq_client)
+openrouter_client=AsyncOpenAI(base_url=OPEN_ROUTER_URL,api_key=openrouter_api_key)
 llama_scout = OpenAIChatCompletionsModel(model="meta-llama/llama-4-scout-17b-16e-instruct", openai_client=groq_client)
+gemma=OpenAIChatCompletionsModel(model="google/gemma-4-26b-a4b-it:free",openai_client=openrouter_client)
 
 writer_instructions = (
     "You are a senior researcher tasked with writing a cohesive report for a research query. "
@@ -33,6 +36,6 @@ class ReportData(BaseModel):
 writer_agent = Agent(
     name="WriterAgent",
     instructions=writer_instructions,
-    model=llama_scout,
+    model=gemma,
     output_type=ReportData,
 )
